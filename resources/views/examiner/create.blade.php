@@ -33,5 +33,6 @@
           <div class="mb-3">
             <button class="btn btn-secondary w-100">Sign up</button>
           </div>
+          <p>Already have an account? <a href="{{route('login')}}" class="text-decoration-none">Login</a></p>
     </form>
 </x-examiner>

@@ -12,7 +12,11 @@
         <div class="container">
           <a class="navbar-brand">Examiner</a>
 
-          <a href="" class="btn btn-sm btn-danger">Logout</a>
+          <form action="{{route('examiner.logout')}}" method="post">
+            @csrf
+
+            <button class="btn btn-danger btn-sm">Logout</button>
+          </form>
         </div>
       </nav>
 

@@ -29,5 +29,6 @@
         <div class="mb-3">
             <button class="btn btn-secondary w-100">Login</button>
         </div>
+        <p>Don't have an account? <a href="{{route('examiner.create')}}" class="text-decoration-none">Sign up</a></p>
     </form>
 </x-examiner>

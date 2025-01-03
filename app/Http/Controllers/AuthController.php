@@ -56,5 +56,11 @@ class AuthController extends Controller
         
     }
 
-    
+    public function logout()
+    {
+        $examiner = request()->user();
+        Auth::logout($examiner);
+
+        return redirect()->route('login');
+    }
 }

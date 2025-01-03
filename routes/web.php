@@ -13,3 +13,4 @@ Route::get('login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('examiner.login');
 
 Route::get('/examiner/dashboard', [ExaminerController::class, 'dashboard'])->name('examiner.dashboard');
+Route::post('/logout', [AuthController::class, 'logout'])->name('examiner.logout');
