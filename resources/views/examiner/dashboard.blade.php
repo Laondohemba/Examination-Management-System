@@ -2,7 +2,7 @@
     <examinerdashboard></examinerdashboard>
 
     @if (session('success'))
-        <div class="text-bg-success p-2">
+        <div class="text-bg-success p-2 w-50">
             {{session('success')}}
         </div>
     @endif

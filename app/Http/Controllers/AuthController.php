@@ -6,6 +6,8 @@ use App\Models\Examiner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use function Ramsey\Uuid\v1;
+
 class AuthController extends Controller
 {
     public function create()
@@ -32,4 +34,27 @@ class AuthController extends Controller
 
         return redirect()->route('examiner.dashboard')->with('success', 'Account created successfully');
     }
+
+    public function loginForm()
+    {
+        return view('examiner.login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'username' => ['required', 'max:255'],
+            'password' => ['required']
+        ]);
+
+        if(Auth::attempt($credentials))
+        {
+            return redirect()->route('examiner.dashboard')->with('success', 'Login successful');
+        }
+
+        return back()->withErrors(['loginFailed' => 'Invalid login credentials! Note that passwords are case sensitive']);
+        
+    }
+
+    
 }
