@@ -12,11 +12,20 @@
         <div class="container">
           <a class="navbar-brand">Examiner</a>
 
+          @auth
           <form action="{{route('examiner.logout')}}" method="post">
             @csrf
 
             <button class="btn btn-danger btn-sm">Logout</button>
           </form>
+          @endauth
+
+          @guest
+              <div class="d-flex">
+                <a href="{{route('examiner.create')}}" class="btn btn-sm btn-success me-5">Sign up</a>
+                <a href="{{route('login')}}" class="btn btn-sm btn-primary">Login</a>
+              </div>
+          @endguest
         </div>
       </nav>
 
