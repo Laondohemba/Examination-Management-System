@@ -16,6 +16,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('examiner.login');
 Route::middleware('auth')->group(function() {
     Route::get('/examiner/dashboard', [ExaminerController::class, 'dashboard'])->name('examiner.dashboard');
     Route::post('/logout', [AuthController::class, 'logout'])->name('examiner.logout');
+    Route::get('/{examination}/enroll/students', [ExaminationController::class, 'enrollStudents'])->name('enroll.students');
+    Route::post('/{examination}/enroll/students', [ExaminationController::class, 'addStudents'])->name('student.store');
 
     Route::get('/examination/new', [ExaminationController::class, 'create'])->name('examination.create');
     Route::post('/examination/new', [ExaminationController::class, 'store'])->name('examination.store');
