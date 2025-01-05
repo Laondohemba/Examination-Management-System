@@ -13,10 +13,10 @@
         @csrf
         <div class="row">
             <div class="col">
-                <label for="name" class="form-label">Student's name</label>
-                <input type="text" class="form-control @error('name') border-danger @enderror"
-                    value="{{ old('name') }}" placeholder="Name" id="name" name="name">
-                @error('name')
+                <label for="email" class="form-label">Student's email</label>
+                <input type="text" class="form-control @error('email') border-danger @enderror"
+                    value="{{ old('email') }}" placeholder="Email" id="email" name="email">
+                @error('email')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>

@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('examiner_id')->constrained()->cascadeOnDelete();
             $table->foreignId('examination_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('reg_no')->nullable();
-            $table->string('email')->nullable();
+            $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('password');
             $table->timestamps();

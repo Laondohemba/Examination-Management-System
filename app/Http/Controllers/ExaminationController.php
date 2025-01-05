@@ -35,7 +35,7 @@ class ExaminationController extends Controller
     public function addStudents(Request $request, $id)
     {
         $credentials = $request->validate([
-            'name' => ['required', 'max:255'],
+            'email' => ['required', 'max:255', 'email', 'unique:students'],
             'password' => ['required', 'min:3'],
         ]);
 
