@@ -19,6 +19,8 @@ Route::get('/students/dashboard', [StudentController::class, 'dashboard'])->name
 Route::post('/students/logout', [StudentController::class, 'logout'])->name('student.logout');
 Route::get('/password/reset/{student}', [StudentController::class, 'resetPasswordForm'])->name('reset.form');
 Route::post('/password/reset/{student}', [StudentController::class, 'resetPassword'])->name('password.reset');
+Route::get('/profile/update', [StudentController::class, 'edit'])->name('profile.edit');
+Route::post('/profile/update', [StudentController::class, 'update'])->name('profile.update');
 
 Route::middleware('auth')->group(function() {
     Route::get('/examiner/dashboard', [ExaminerController::class, 'dashboard'])->name('examiner.dashboard');

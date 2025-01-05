@@ -40,7 +40,7 @@ class StudentController extends Controller
     {
         $student = Auth::guard('student')->user();
         
-        return view('students.reset_password', ['student' => $student]);
+        return view('students.reset_password', ['student' => $student ?? auth('student')->user()]);
     }
 
     public function resetPassword(Request $request, $id)
@@ -61,7 +61,7 @@ class StudentController extends Controller
         $student->first_login = false;
         $student->save();
 
-        return redirect()->route('student.dashboard')->with('success', 'Password reset successful. You can now update your profile');
+        return redirect()->route('student.dashboard')->with('success', 'Password reset successful.');
     }
 
     return back()->withErrors(['resetFailed' => 'Password reset failed']);
@@ -79,5 +79,29 @@ class StudentController extends Controller
     public function dashboard()
     {
         return view('students.dashboard');
+    }
+
+    public function edit()
+    {
+        return view('students.update_profile');
+    }
+
+    public function update(Request $request)
+    {
+        $data = $request->validate([
+            'name' => ['required', 'max:255', 'string'],
+            'reg_no' => ['required', 'max:255'],
+            'phone' => ['required', 'numeric']
+        ]);
+
+        $id = auth('student')->user()->id;
+        $student = Student::find($id);
+
+        if($student->update($data))
+        {
+            return redirect()->route('student.dashboard')->with('success', 'Profile updated successfully');
+        }
+
+        return back()->withErrors(['updateFailed' => 'Sorry something went! Try again later.']);     
     }
 }
