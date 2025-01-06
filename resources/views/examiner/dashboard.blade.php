@@ -47,13 +47,13 @@
               
               <li class="list-group-item">
                 <div class="row">
-                    <div class="col-4">
+                    <div class="col-4 text-center">
                         <a href="{{route('enroll.students', $examination)}}" class="btn btn-sm btn-secondary">Enroll students</a>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 text-center">
                         <a href="" class="btn btn-sm btn-secondary">Set questions</a>
                     </div>
-                    <div class="col-4">
+                    <div class="col-4 text-center">
                         <a href="" class="btn btn-sm btn-secondary">Review answers</a>
                     </div>
                 </div>
