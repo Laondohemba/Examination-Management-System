@@ -29,6 +29,7 @@ Route::prefix('students')->middleware(StudentNotAuthenticated::class)->group(fun
     Route::post('/password/reset/{student}', [StudentController::class, 'resetPassword'])->name('password.reset');
     Route::get('/profile/update', [StudentController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [StudentController::class, 'update'])->name('profile.update');
+    Route::get('/examinations', [StudentController::class, 'getExaminations'])->name('student.examinations');
 });
 
 Route::middleware('auth')->group(function() {
@@ -43,5 +44,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/examination/new', [ExaminationController::class, 'create'])->name('examination.create');
     Route::post('/examination/new', [ExaminationController::class, 'store'])->name('examination.store');
+    Route::get('/examination/{examination}/update', [ExaminationController::class, 'edit'])->name('examination.edit');
+    Route::patch('/examination/{examination}/update', [ExaminationController::class, 'update'])->name('examination.update');
 });
 

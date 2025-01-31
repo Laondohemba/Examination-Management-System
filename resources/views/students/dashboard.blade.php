@@ -4,7 +4,7 @@
             {{session('success')}}
         </div>
     @endif
-    <h3 class="text-center my-3">Students Dashboard</h3>
+    <h3 class="text-center my-3">{{auth('student')->user()->name}} Dashboard</h3>
 
     <div class="row">
         <div class="col-md-4">
@@ -30,7 +30,49 @@
             </div>
         </div>
         <div class="col-md-8">
-
+          @if ($examinations->count() > 0)
+          <h6>Upcoming examinations</h6>
+          @foreach ($examinations as $examination)
+          <div class="card mx-auto my-5" style="width: 40rem;">
+              <div class="card-header d-flex justify-content-between">
+                <h3 class="text-center">
+                  {{ucwords($examination->examination->exam_name)}}
+                </h3>
+  
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <div class="row">
+                      <div class="col-2">
+                          <h6>Date</h6>
+                      </div>
+                      <div class="col-5">
+                          From {{$examination->examination->start_date}}
+                      </div>
+                      <div class="col-5">
+                          To {{$examination->examination->end_date}}
+                      </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                      <div class="col-2">
+                          <h6>Time</h6>
+                      </div>
+                      <div class="col-5">
+                          From {{$examination->examination->start_time}}
+                      </div>
+                      <div class="col-5">
+                          To {{$examination->examination->end_time}}
+                      </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          @endforeach
+          @else
+              <h3 class="text-center">No you have no examination yet</h3>
+          @endif
         </div>
     </div>
 </x-student>

@@ -80,20 +80,23 @@ class StudentController extends Controller
     {
         
         $student = Auth::guard('student')->user();
+        $examinations = Student::with('examination')->where('id', auth('student')->user()->id)->get();
 
         if($student->name == null)
         {
             return redirect()->route('profile.edit');
         }
 
-        return view('students.dashboard');
+        return view('students.dashboard', ['examinations' => $examinations]);
     }
 
+    //display form for students to update their profile
     public function edit()
     {
         return view('students.update_profile');
     }
 
+    //update student's profile
     public function update(Request $request)
     {
         $data = $request->validate([
@@ -111,5 +114,11 @@ class StudentController extends Controller
         }
 
         return back()->withErrors(['updateFailed' => 'Sorry something went! Try again later.']);     
+    }
+
+    //fetch examination for students
+    public function getExaminations()
+    {
+        // dd($examinations);
     }
 }

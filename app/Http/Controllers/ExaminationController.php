@@ -26,12 +26,14 @@ class ExaminationController extends Controller
         return redirect()->route('examiner.dashboard')->with('success', 'Your examination has been created successfully.');
     }
 
+    //display form for adding students
     public function enrollStudents($id)
     {
         $examination = Examination::find($id);
         return view('examinations.enroll_students', ['examination' => $examination]);
     }
 
+    //store students in the db
     public function addStudents(Request $request, $id)
     {
         $credentials = $request->validate([
@@ -65,6 +67,7 @@ class ExaminationController extends Controller
         return view('students.edit', ['student' => $student]);
     }
 
+    //handle updating of student's record by examiner
     public function updateStudent(Student $student, Request $request)
     {
         $data = $request->validate([
@@ -83,11 +86,25 @@ class ExaminationController extends Controller
         return to_route('examination.students', $examination)->with('success', 'Student\'s record updated successfully');
     }
 
+    //examiner to delete a student's record
     public function destroyStudent(Student $student)
     {        
         $examination = Examination::where('id', $student->examination_id)->first();
         $student->delete();
 
         return to_route('examination.students', $examination)->with('success', 'Student\'s record deleted successfully');
+    }
+
+    //display form for examiner to update exam records
+    public function edit(Examination $examination)
+    {
+        return view('examinations.edit', ['examination' => $examination]);
+    }
+
+    //update examination record
+    public function update(Examination $examination, ExaminationRequest $request)
+    {
+        $data = $request->validated();
+        dd($data);
     }
 }

@@ -12,10 +12,12 @@
         <h3 class="text-center my-3">Your recent examinations</h3>
         @foreach ($examinations as $examination)
         <div class="card mx-auto my-3" style="width: 40rem;">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between">
               <h3 class="text-center">
                 {{$examination->exam_name}}
               </h3>
+
+              <a href="{{route('examination.edit', $examination)}}" class="btn btn-sm btn-light">Edit exam</a>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -48,13 +50,13 @@
               <li class="list-group-item">
                 <div class="row">
                     <div class="col-4 text-center">
-                        <a href="{{route('enroll.students', $examination)}}" class="btn btn-sm btn-secondary">Enroll students</a>
+                        <a href="{{route('enroll.students', $examination)}}" class="btn btn-sm btn-light">Enroll students</a>
                     </div>
                     <div class="col-4 text-center">
-                        <a href="" class="btn btn-sm btn-secondary">Set questions</a>
+                        <a href="" class="btn btn-sm btn-light">Set questions</a>
                     </div>
                     <div class="col-4 text-center">
-                        <a href="" class="btn btn-sm btn-secondary">Review answers</a>
+                        <a href="" class="btn btn-sm btn-light">Review answers</a>
                     </div>
                 </div>
               </li>

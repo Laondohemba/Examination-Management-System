@@ -28,13 +28,13 @@ class ExaminationRequest extends FormRequest
     public function rules()
     {
         return [
-            'exam_name' => 'required|max:255|',
+            'exam_name' => 'required|max:255|unique:examinations',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
-            'start_time' => 'required|date_format:H:i',
+            'start_time' => 'required|date_format:h:i',
             'end_time' => [
                 'required',
-                'date_format:H:i',
+                'date_format:h:i',
                 function ($attribute, $value, $fail) {
                     $startDate = $this->input('start_date');
                     $endDate = $this->input('end_date');
