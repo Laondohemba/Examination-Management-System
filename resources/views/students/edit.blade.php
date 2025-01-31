@@ -1,3 +1,4 @@
+{{-- form for examiner to update student's record --}}
 <x-examiner>
 
     @if (session('success'))
@@ -8,14 +9,16 @@
     <h3 class="text-center my-2">{{ ucwords(auth()->user()->username) }}, welcome to Examiner</h3>
     <x-examinerdashboard></x-examinerdashboard>
 
-    <h3 class="text-center my-3">Enroll students for {{ $examination->exam_name }} </h3>
-    <form action="{{ route('student.store', $examination->id) }}" method="post" class="w-75 bg-light p-5 my-3 mx-auto">
+    <h3 class="text-center my-3">Edit student's data</h3>
+
+    <form action="{{route('student.update', $student)}}" method="post" class="w-75 bg-light p-5 my-3 mx-auto">
         @csrf
+        @method('PUT')
         <div class="row">
             <div class="col">
                 <label for="email" class="form-label">Student's email</label>
                 <input type="text" class="form-control @error('email') border-danger @enderror"
-                    value="{{ old('email') }}" placeholder="Email" id="email" name="email">
+                    value="{{ old('email') ?? $student->email }}" placeholder="Email" id="email" name="email">
                 @error('email')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -29,8 +32,7 @@
                 @enderror
             </div>
             <div class="col-12 mt-3">
-                <button class="btn btn-secondary w-100 mx-auto">Enroll student</button>
-                <a href="{{route('examination.students', $examination->id)}}" class="btn btn-primary w-100 my-4">Enrolled students</a>
+                <button class="btn btn-secondary w-100 mx-auto">Update record</button>
             </div>
 
             <div class="col-12 mt-5">
@@ -39,4 +41,6 @@
             </div>
         </div>
     </form>
+
+    
 </x-examiner>

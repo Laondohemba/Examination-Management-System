@@ -48,4 +48,46 @@ class ExaminationController extends Controller
 
         return redirect()->route('enroll.students', $id)->with('success', 'Student enrolled successfully');
     }
+
+    // diplay a list of students for an examination for the examiner
+    public function students($id)
+    {
+        $students = Student::with('examination')->where('examination_id', $id)->paginate(15);
+        
+        return view('examinations.students', ['students' => $students]);
+    }
+
+    // display edit blade view from students folder for examiner to update student's record
+    public function editStudent($email)
+    {
+        $student = Student::where('email', $email)->first();
+
+        return view('students.edit', ['student' => $student]);
+    }
+
+    public function updateStudent(Student $student, Request $request)
+    {
+        $data = $request->validate([
+            'email' => ['required', 'email', 'unique:students'],
+            'password' => ['required', 'min:3'],
+        ]);
+
+        $student->update([
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        //fetch examination
+        $examination = Examination::where('id', $student->examination_id)->first();
+
+        return to_route('examination.students', $examination)->with('success', 'Student\'s record updated successfully');
+    }
+
+    public function destroyStudent(Student $student)
+    {        
+        $examination = Examination::where('id', $student->examination_id)->first();
+        $student->delete();
+
+        return to_route('examination.students', $examination)->with('success', 'Student\'s record deleted successfully');
+    }
 }

@@ -24,7 +24,7 @@ class StudentController extends Controller
         if(Auth::guard('student')->attempt($credentials))
         {
             $student = Auth::guard('student')->user();
-            if($student->first_login == true)
+            if($student->first_login == true || $student->name == null)
             {
                 return redirect()->route('reset.form', ['student' => $student]);
             }
@@ -79,6 +79,13 @@ class StudentController extends Controller
     public function dashboard()
     {
         
+        $student = Auth::guard('student')->user();
+
+        if($student->name == null)
+        {
+            return redirect()->route('profile.edit');
+        }
+
         return view('students.dashboard');
     }
 

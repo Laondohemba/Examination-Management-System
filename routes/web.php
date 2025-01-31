@@ -9,7 +9,7 @@ use App\Http\Controllers\ExaminationController;
 use App\Http\Middleware\StudentNotAuthenticated;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 Route::get('/signup', [AuthController::class, 'create'])->name('examiner.create');
 Route::post('/signup', [AuthController::class, 'store'])->name('examiner.store');
@@ -36,6 +36,10 @@ Route::middleware('auth')->group(function() {
     Route::post('/logout', [AuthController::class, 'logout'])->name('examiner.logout');
     Route::get('/{examination}/enroll/students', [ExaminationController::class, 'enrollStudents'])->name('enroll.students');
     Route::post('/{examination}/enroll/students', [ExaminationController::class, 'addStudents'])->name('student.store');
+    Route::get('/{examination}/students', [ExaminationController::class, 'students'])->name('examination.students');
+    Route::get('/students/update/{student}', [ExaminationController::class, 'editStudent'])->name('student.edit');
+    Route::put('/students/update/{student}', [ExaminationController::class, 'updateStudent'])->name('student.update');
+    Route::delete('/students/update/{student}', [ExaminationController::class, 'destroyStudent'])->name('student.destroy');
 
     Route::get('/examination/new', [ExaminationController::class, 'create'])->name('examination.create');
     Route::post('/examination/new', [ExaminationController::class, 'store'])->name('examination.store');
