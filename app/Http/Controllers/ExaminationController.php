@@ -105,6 +105,8 @@ class ExaminationController extends Controller
     public function update(Examination $examination, ExaminationRequest $request)
     {
         $data = $request->validated();
-        dd($data);
+        $examination->update($data);
+
+        return to_route('examiner.dashboard')->with('success', 'Examination record updated successfully');
     }
 }

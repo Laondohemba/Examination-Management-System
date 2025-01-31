@@ -36,7 +36,7 @@ class StudentController extends Controller
         }
     }
 
-    public function resetPasswordForm($id)
+    public function resetPasswordForm()
     {
         $student = Auth::guard('student')->user();
         
@@ -114,11 +114,5 @@ class StudentController extends Controller
         }
 
         return back()->withErrors(['updateFailed' => 'Sorry something went! Try again later.']);     
-    }
-
-    //fetch examination for students
-    public function getExaminations()
-    {
-        // dd($examinations);
     }
 }
