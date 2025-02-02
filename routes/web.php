@@ -6,6 +6,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\ExaminerController;
 use App\Http\Middleware\StudentAuthenticate;
 use App\Http\Controllers\ExaminationController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Middleware\StudentNotAuthenticated;
 
 Route::get('/', function () {
@@ -42,9 +43,15 @@ Route::middleware('auth')->group(function() {
     Route::put('/students/update/{student}', [ExaminationController::class, 'updateStudent'])->name('student.update');
     Route::delete('/students/update/{student}', [ExaminationController::class, 'destroyStudent'])->name('student.destroy');
 
-    Route::get('/examination/new', [ExaminationController::class, 'create'])->name('examination.create');
-    Route::post('/examination/new', [ExaminationController::class, 'store'])->name('examination.store');
-    Route::get('/examination/{examination}/update', [ExaminationController::class, 'edit'])->name('examination.edit');
-    Route::patch('/examination/{examination}/update', [ExaminationController::class, 'update'])->name('examination.update');
+    Route::prefix('examination')->group(function(){
+        Route::get('/new', [ExaminationController::class, 'create'])->name('examination.create');
+        Route::post('/new', [ExaminationController::class, 'store'])->name('examination.store');
+        Route::get('/{examination}/update', [ExaminationController::class, 'edit'])->name('examination.edit');
+        Route::patch('/{examination}/update', [ExaminationController::class, 'update'])->name('examination.update');
+        
+        Route::get('/{examination}/questions/add', [QuestionController::class, 'create'])->name('question.create');
+        Route::post('/{examination}/questions/add', [QuestionController::class, 'store'])->name('question.store');
+        Route::get('/{examination}/questions', [QuestionController::class, 'index'])->name('question.index');
+    });
 });
 

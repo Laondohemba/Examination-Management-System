@@ -53,7 +53,7 @@
                         <a href="{{route('enroll.students', $examination)}}" class="btn btn-sm btn-light">Enroll students</a>
                     </div>
                     <div class="col-4 text-center">
-                        <a href="" class="btn btn-sm btn-light">Set questions</a>
+                        <a href="{{route('question.create', $examination)}}" class="btn btn-sm btn-light">Set questions</a>
                     </div>
                     <div class="col-4 text-center">
                         <a href="" class="btn btn-sm btn-light">Review answers</a>
