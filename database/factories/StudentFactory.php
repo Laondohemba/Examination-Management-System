@@ -19,11 +19,11 @@ class StudentFactory extends Factory
     {
         return [
             'examiner_id' => 1,
-            'examination_id' => 2,
+            'examination_id' => 1,
             'name' => fake()->name(),
-            'reg_no' => fake()->numberBetween(),
+            'reg_no' => fake()->numberBetween(10000000, 50000000),
             'email' => fake()->email(),
-            'phone' => fake()->numberBetween(),
+            'phone' => fake()->numberBetween(10000000, 50000000),
             'password' => Hash::make(123),
         ];
     }

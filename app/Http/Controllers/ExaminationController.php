@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Examination;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\ExaminationRequest;
-use App\Models\Student;
 
 class ExaminationController extends Controller
 {
@@ -71,7 +72,7 @@ class ExaminationController extends Controller
     public function updateStudent(Student $student, Request $request)
     {
         $data = $request->validate([
-            'email' => ['required', 'email', 'unique:students'],
+            'email' => ['required', 'email', Rule::unique('students')->ignore($student->id)],
             'password' => ['required', 'min:3'],
         ]);
 
