@@ -8,16 +8,19 @@
     <h3 class="text-center my-2">{{ ucwords(auth()->user()->username) }}, welcome to Examiner</h3>
     <x-examinerdashboard></x-examinerdashboard>
 
-    <h3 class="text-center my-3">Add questions for  {{$examination->exam_name}} </h3>
-    <form action="{{route('question.store', $examination)}}" method="post" class="w-75 bg-light p-5 my-3 mx-auto">
+    <div class="w-75 mx-auto d-flex justify-content-around">
+        <a href="{{route('question.index', $examination)}}" class="text-decoration-none">See added questions</a>
+        <h3>Add questions for {{ $examination->exam_name }} </h3>
+    </div>
+    <form action="{{ route('question.store', $examination) }}" method="post" class="w-75 bg-light p-5 my-3 mx-auto">
         @csrf
         <div class="row">
             <div class="col-12 mb-3">
                 <label for="type" class="form-label">Question type</label>
-                    <select name="type" id="type" class="form-select">
-                        <option value="theory">Theory</option>
-                        <option value="multiple_choice">Multiple choice</option>
-                    </select>
+                <select name="type" id="type" class="form-select">
+                    <option value="theory">Theory</option>
+                    <option value="multiple_choice">Multiple choice</option>
+                </select>
                 @error('type')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

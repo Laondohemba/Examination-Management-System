@@ -58,7 +58,10 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        $examination = Question::with('examination')->where('examination_id', $question->examination_id)->where('id', $question->id)->first();
+        // dd($examination);
+
+        return view('questions.edit', ['question' => $question, 'examination' => $examination]);
     }
 
     /**
@@ -66,7 +69,13 @@ class QuestionController extends Controller
      */
     public function update(UpdateQuestionRequest $request, Question $question)
     {
-        //
+        $examination = Question::with('examination')->where('examination_id', $question->examination_id)->where('id', $question->id)->first();
+
+        $validated = $request->validated();
+        if($question->update($validated))
+        {
+            return to_route('question.index', $question->examination_id)->with('success', 'Question updated successfully');
+        }
     }
 
     /**
@@ -74,6 +83,11 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $id = $question->examination_id;
+
+        if($question->delete())
+        {
+            return to_route('question.index', $id)->with('success', 'Question deleted successfully');
+        }
     }
 }

@@ -28,10 +28,10 @@
                     @endif
 
                     @if ($question->option_two != null)
-                    <div>
-                        <input type="radio" id="option_two">
-                        <label for="option_two">{{ $question->option_two }}</label>
-                    </div>
+                        <div>
+                            <input type="radio" id="option_two">
+                            <label for="option_two">{{ $question->option_two }}</label>
+                        </div>
                     @endif
 
                     @if ($question->option_three != null)
@@ -56,8 +56,14 @@
                     @endif
                 @endif
 
-                <a href="" class="btn btn-primary btn-sm mt-2">Edit</a>
-                <a href="" class="btn btn-danger btn-sm mt-2">Delete</a>
+                <div class="d-flex">
+                    <a href="{{ route('question.edit', $question) }}" class="btn btn-primary btn-sm mt-2">Edit</a>
+                    <form action="{{ route('question.destroy', $question) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-danger btn-sm mt-2 ms-4">Delete</button>
+                    </form>
+                </div>
             </div>
         @endforeach
     @else

@@ -52,6 +52,13 @@ Route::middleware('auth')->group(function() {
         Route::get('/{examination}/questions/add', [QuestionController::class, 'create'])->name('question.create');
         Route::post('/{examination}/questions/add', [QuestionController::class, 'store'])->name('question.store');
         Route::get('/{examination}/questions', [QuestionController::class, 'index'])->name('question.index');
+
+        Route::prefix('questions')->group(function(){
+            Route::get('/{question}/update', [QuestionController::class, 'edit'])->name('question.edit');
+            Route::put('/{question}/update', [QuestionController::class, 'update'])->name('question.update');
+            Route::delete('/{question}/delete', [QuestionController::class, 'destroy'])->name('question.destroy');
+
+        });
     });
 });
 
