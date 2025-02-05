@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\Examination;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
-use App\Models\Examination;
 
 class QuestionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -70,6 +72,13 @@ class QuestionController extends Controller
     public function update(UpdateQuestionRequest $request, Question $question)
     {
         $examination = Question::with('examination')->where('examination_id', $question->examination_id)->where('id', $question->id)->first();
+
+        if(Auth::id() != $question->examination->examiner_id)
+        {
+            return back()->withErrors([
+                'updateFailed' => 'Only the examiner can update their questions.'
+            ]);
+        }
 
         $validated = $request->validated();
         if($question->update($validated))

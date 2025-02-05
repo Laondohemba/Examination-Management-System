@@ -100,7 +100,7 @@
                 @enderror
             </div>
 
-            @error('storeFailed')
+            @error('updateFailed')
                 <p class="text-danger">{{ $message }}</p>
             @enderror
 

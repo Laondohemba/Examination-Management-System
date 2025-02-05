@@ -17,7 +17,7 @@ class QuestionFactory extends Factory
     public function definition(): array
     {
         return [
-            'examination_id' => 1,
+            'examination_id' => 2,
             'type' => 'multiple_choice',
             'question' => fake()->sentence(10),
             'option_one' => $optionOne = fake()->sentence(6),
