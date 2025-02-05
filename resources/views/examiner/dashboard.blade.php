@@ -11,7 +11,7 @@
     @if ($examDetails->count() > 0)
     <h3 class="text-center my-3">Your recent examinations</h3>
     @foreach ($examDetails as $examination)
-        <div class="card mx-auto my-3" style="width: 40rem;">
+        <div class="card mx-auto mt-5" style="width: 40rem;">
             <div class="card-header d-flex justify-content-between">
               <h3 class="text-center">
                 {{$examination['examinations']->exam_name}}

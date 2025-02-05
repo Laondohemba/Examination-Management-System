@@ -74,39 +74,40 @@ class StudentController extends Controller
         return redirect()->route('student.login');
     }
 
+
     public function dashboard()
     {
-        $examinations = Student::with('examination')->where('id', auth('student')->user()->id)->get();
+        $examinations = Student::with('examination')
+            ->where('id', auth('student')->user()->id)
+            ->get();
 
         $examDetails = $examinations->map(function ($examination) {
-            // Parse date and time from DB fields
+            if (!$examination->examination) {
+                return null;
+            }
+
             $exam = $examination->examination;
 
+            // Parse start and end timestamps
             $startDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "{$exam->start_date} {$exam->start_time}");
             $endDateTime = Carbon::createFromFormat('Y-m-d H:i:s', "{$exam->end_date} {$exam->end_time}");
             $now = Carbon::now();
 
-            // Custom "Starts in" format
-            if ($startDateTime->greaterThan($now)) {
-                $diff = $now->diff($startDateTime);
-                $startsIn = ($diff->d ? $diff->d . ' days ' : '')
-                    . ($diff->h ? $diff->h . ' hours ' : '')
-                    . ($diff->i ? $diff->i . ' minutes' : '');
-            } else {
-                $startsIn = 'Already started';
-            }
+            $startsIn = $startDateTime->greaterThan($now)
+                ? $now->diff($startDateTime)->format('%d days %h hours %i minutes')
+                : 'Already started';
 
-            // Custom "Ended" format
-            $ended = $endDateTime->lessThan($now)
-                ? $endDateTime->diffForHumans($now, true) . ' ago'
-                : 'Not ended yet';
+
+            // Check if the current time is within the exam period
+            $canTakeExam = $now->between($startDateTime, $endDateTime);
 
             return [
                 'examinations' => $exam,
-                'starts_in' => trim($startsIn),
-                'ended' => $ended,
+                'starts_in' => $startsIn,
+                'ended' => $endDateTime->lessThan($now) ? $endDateTime->diffForHumans($now, true) . ' ago' : 'Not ended yet',
+                'can_take_exam' => $canTakeExam,
             ];
-        });
+        })->filter();
 
         return view('students.dashboard', ['examinations' => $examDetails]);
     }

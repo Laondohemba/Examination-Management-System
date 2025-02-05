@@ -33,7 +33,7 @@
             @if ($examinations->count() > 0)
                 <h6 class="my-3 text-center">Upcoming examinations</h6>
                 @foreach ($examinations as $examination)
-                    <div class="card mx-auto mt-5" style="width: 40rem;">
+                    <div class="card mx-auto mt-5" style="width: 35rem;">
                         <div class="card-header d-flex justify-content-between">
                             <h3 class="text-center">
                                 {{ $examination['examinations']->exam_name }}
@@ -54,6 +54,12 @@
                                     </div>
                                 </div>
                             </li>
+
+                            @if ($examination['can_take_exam'])
+                                <li class="list-group-item text-center">
+                                    <a href="" class="btn btn-sm btn-primary">Take Exam</a>
+                                </li>
+                            @endif
 
                         </ul>
                     </div>
