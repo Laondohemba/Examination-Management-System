@@ -12,12 +12,15 @@
                 <i class="fa fa-user" style="font-size:12rem; color:black"></i>
                 <div class="card text-center">
                     <div class="card-header">
-                        <strong>Email:</strong> {{ auth('student')->user()->email ?? '' }}
-                    </div>
-                    <div class="card-body">
                         <h5 class="card-title">
-                            <strong>Name:</strong> {{ auth('student')->user()->name ?? '' }}
-                        </h5>
+                        <strong>Name:</strong> {{ auth('student')->user()->name ?? '' }}
+                        
+                    </h5>
+                    </div>
+                    <div class="card-body text-start">
+                        <p class="card-text">
+                            <strong>Email:</strong> {{ auth('student')->user()->email ?? '' }}
+                        </p>
                         <p class="card-text">
                             <strong>Phone:</strong> {{ auth('student')->user()->phone ?? '' }}
                         </p>
@@ -57,7 +60,36 @@
 
                             @if ($examination['can_take_exam'])
                                 <li class="list-group-item text-center">
-                                    <a href="" class="btn btn-sm btn-primary">Take Exam</a>
+                                    {{-- <a href="" class="btn btn-sm btn-primary"></a> --}}
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#staticBackdrop">
+                                        Take Exam
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                        data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Are you ready to take the exam?
+                                                    </h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Note that once started, students are not allowed to exit the examination page until they submit their responses. Are you ready to take your exam?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <a href="" class="btn btn-primary">Proceed to exam</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             @endif
 

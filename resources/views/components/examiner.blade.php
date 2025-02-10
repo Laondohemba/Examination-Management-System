@@ -11,7 +11,7 @@
     
     <nav class="navbar bg-body-tertiary">
         <div class="container">
-          <a class="navbar-brand">Examiner</a>
+          <a class="navbar-brand" href="{{route('examiner.dashboard')}}">Examiner</a>
 
           @auth
           <form action="{{route('examiner.logout')}}" method="post">
@@ -30,7 +30,7 @@
         </div>
       </nav>
 
-      <div class="container">
+      <div class="container pb-5">
         {{ $slot }}
       </div>
 
